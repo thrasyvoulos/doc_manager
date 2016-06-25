@@ -5,7 +5,8 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
-use kartik\widgets\Select2
+use kartik\widgets\Select2;
+use kartik\label\LabelInPlace;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Rvperson */
@@ -79,6 +80,14 @@ echo $form->field($model, 'sex')->widget(Select2::classname(), [
 ]);
          
         ?>
+    <?php
+    /*
+    echo LabelInPlace::widget([
+    'name'=>'mobilephone', 
+    'label'=>'<i class="glyphicon glyphicon-phone"></i> Phone number',
+    'encodeLabel'=> false
+]);*/
+    ?>
     <?= $form->field($model, 'mobilephone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'telephone')->textInput(['maxlength' => true]) ?>

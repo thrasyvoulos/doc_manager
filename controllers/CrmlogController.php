@@ -34,7 +34,8 @@ class CrmlogController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
+    { Yii::$app->getSession()->setFlash('success', 'Your Text Here..');
+
         $searchModel = new CrmlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,16 +65,21 @@ class CrmlogController extends Controller
     public function actionCreate($id)
     {
         $model = new Crmlog();
+        $model->scenario = 'create';
         $model->crmtypeid=  Crmlog::CRMTYPE_RENDEZVOUS;
         $model->rvpersonid=$id;
         $model->createddate=date('Y-m-d H:i:s');
+       // $model->fromdate=date('Y-m-d H:i:s');
+       // $model->todate=date('Y-m-d H:i:s',strtotime('+1 hour'));
         $model->accountid=Yii::$app->user->identity->accountid;
         $model->status=0;
         //$model->save();
          //var_dump($model->getErrors());
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-           
-            return $this->redirect(['index']);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+           if($model->save()){return $this->redirect(['index']);}
+
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -94,12 +100,15 @@ public function actionChange(){
    if (Yii::$app->request->isAjax) {
      
        $data = Yii::$app->request->post();
+
        $ex=  explode(',',$data['id']);
+
        $crmlogid=$ex[0];
        $status=$ex[1];
        $model = $this->findModel($crmlogid);
        $model->status=$status;
        $model->save();
+      // var_dump($model->getErrors());exit;
     
     }
 }

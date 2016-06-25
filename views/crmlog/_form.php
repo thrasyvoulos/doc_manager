@@ -18,9 +18,17 @@ use kartik\widgets\Select2;
 <div class="crmlog-form">
 
     <?php $form = ActiveForm::begin([
-    'id' => 'form-crmlog',
-    'type' => ActiveForm::TYPE_HORIZONTAL
-]); ?>
+    'id' => 'crmlog-form',
+    'type' => ActiveForm::TYPE_HORIZONTAL,
+        'enableAjaxValidation' => false,
+        'enableClientValidation' => true,
+        'options'=>array(
+            /* When false, the rules are run at the same time */
+            /* When true at the same time than enableClientValidation,
+                custom rules run after all the standard ones are cleared */
+           // 'validateOnSubmit'=>false,
+        ),
+    ]); ?>
      <div class="panel panel-primary">
            <div class="panel-heading">
                <?php   $person = app\models\Rvperson::find()->where(['rvpersonid' => $model->rvpersonid])->one();
@@ -37,25 +45,52 @@ use kartik\widgets\Select2;
     </div>
   </div>
 
-<?php  $items3 = ArrayHelper::map(\app\models\Crmtype::find()->all(), 'crmtypeid', 'description'); ?>
+<?php
+
+ /*echo $form->field($model, 'createddate')->widget(
+    kartik\datetime\DateTimePicker::className(), [
+    'pluginOptions' => [
+        'autoclose'=>true,
+        'format' => 'yyyy-mm-dd hh:ii:ss'
+    ]
+    // 'size' => 'sm',
+    // 'clientOptions' => [
+    //'format' => 'L LT',
+    //  'stepping' => 30,
+    //],
+]);*/
+echo $form->field($model, 'fromdate')->widget(
+    kartik\datetime\DateTimePicker::className(), [
+    'pluginOptions' => [
+        'autoclose'=>true,
+        'format' => 'yyyy-mm-dd hh:ii'
+    ]
+    // 'size' => 'sm',
+    // 'clientOptions' => [
+    //'format' => 'L LT',
+    //  'stepping' => 30,
+    //],
+]);
+echo $form->field($model, 'todate')->widget(
+    kartik\datetime\DateTimePicker::className(), [
+    'pluginOptions' => [
+        'autoclose'=>true,
+        'format' => 'yyyy-mm-dd hh:ii'
+    ]
+    // 'size' => 'sm',
+    // 'clientOptions' => [
+    //'format' => 'L LT',
+    //  'stepping' => 30,
+    //],
+]);
+$items3 = ArrayHelper::map(\app\models\Crmtype::find()->all(), 'crmtypeid', 'description'); ?>
      <?= $form->field($model, 'crmtypeid')->dropDownList($items3,['prompt'=>'-Choose a Category-',
      ]); ?>
    
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-<?= $form->field($model, 'createddate')->widget(
-         kartik\datetime\DateTimePicker::className(), [
-       'pluginOptions' => [
-        'autoclose'=>true,
-        'format' => 'yyyy-mm-dd hh:ii:ss'
-    ]
-       // 'size' => 'sm',
-       // 'clientOptions' => [
-            //'format' => 'L LT',
-          //  'stepping' => 30,
-       //],
-]);?>
+
    
 
     <div class="form-group">
@@ -65,3 +100,23 @@ use kartik\widgets\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<script>
+  /*  $(document).ready(function(event, jqXHR, settings){
+        var form = $(this);
+        if(form.find('.has-error').length) {
+            return false;
+        }
+        $.ajax({
+            url: form.attr('action'),
+            url: '<?php// echo Yii::$app->urlManager->createUrl('crmlog/create'); ?>',
+            data: {id : 2},
+            success: function(data) {
+              alert('hi');
+            }
+        });
+return false;
+    });*/
+</script>

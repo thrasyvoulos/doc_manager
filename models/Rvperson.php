@@ -59,20 +59,20 @@ class Rvperson extends \yii\db\ActiveRecord
     {
         return [
             'rvpersonid' => 'Rvpersonid',
-            'firstname' => 'Firstname',
-            'lastname' => 'Lastname',
-            'fathername' => 'Fathername',
+            'firstname' => Yii::t('app','First Name'),
+            'lastname' => Yii::t('app','Last Name'),
+            'fathername' =>Yii::t('app','Father Name'),
             'cityid' => 'Cityid',
-            'address' => 'Address',
-            'zipcode' => 'Zipcode',
-            'birthdate' => 'Birthdate',
-            'birthplace' => 'Birthplace',
-            'sex' => 'Sex',
-            'mobilephone' => 'Mobilephone',
-            'telephone' => 'Telephone',
+            'address' => Yii::t('app','Address'),
+            'zipcode' => Yii::t('app','Zip Code'),
+            'birthdate' => Yii::t('app','Birthdate'),
+            'birthplace' => Yii::t('app','Birthdate'),
+            'sex' =>Yii::t('app','Sex'),
+            'mobilephone' => Yii::t('app','Mobile phone'),
+            'telephone' => Yii::t('app','Telephone'),
             'email' => 'Email',
             'gps' => 'Gps',
-            'createddate' => 'Createddate',
+            'createddate' => Yii::t('app','Date'),
         ];
     }
 

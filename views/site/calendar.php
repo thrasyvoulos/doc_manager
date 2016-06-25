@@ -27,7 +27,8 @@ if(Yii::$app->user->identity->roleid==app\models\Role::ROLE_USER){
  
   }
   $Event->title = $t->rvperson->lastname.' '.$t->description;
-  $Event->start = $t->createddate;
+  $Event->start = $t->fromdate;
+	  $Event->end = $t->todate;
   //$Event->end=date('Y-m-d H:i:s');
   $events[] = $Event;
   }

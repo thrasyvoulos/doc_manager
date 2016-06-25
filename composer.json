@@ -22,7 +22,9 @@
         "kartik-v/yii2-widgets": "*",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-mpdf": "*",
-		"philippfrenzel/yii2fullcalendar":"*"
+		"philippfrenzel/yii2fullcalendar":"*",
+        "kartik-v/yii2-label-inplace": "*",
+        "kartik-v/yii2-editable": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

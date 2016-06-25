@@ -42,30 +42,7 @@ AppAsset::register($this);
             
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Role', 'url' => ['/role/index'],
-                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
-            ],
-            ['label' => 'Country', 'url' => ['/country/index'],
-               'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
-            ],
-            ['label' => 'Prefecture', 'url' => ['/prefecture/index'],
-                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
-            ],
-            ['label' => 'City', 'url' => ['/city/index'],
-                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
-            ],
-            ['label' => 'Crmtype', 'url' => ['/crmtype/index'],
-                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
-            ],
-            ['label' => 'Rvperson', 'url' => ['/rvperson/index'],
-                'visible'=>!Yii::$app->user->isGuest
-            ],
-            ['label' => 'Crmlog', 'url' => ['/crmlog/index'],
-                'visible'=>!Yii::$app->user->isGuest
-            ],
-            ['label' => 'Calendar', 'url' => ['/site/calendar'],
-                'visible'=>!Yii::$app->user->isGuest
-            ],
+            
             /*['label' => 'Accountrvperson', 'url' => ['/accountrvperson/index'],
                 //'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],*/
@@ -88,27 +65,50 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 <?php
-
-/*echo SideNav::widget([
-    'type' => SideNav::TYPE_DEFAULT,
-    'items' => [
-        [
-            'url' => '#',
-            'label' => 'Home',
-            'icon' => 'home'
-        ],
-        [
-            'label' => 'Help',
-            'icon' => 'question-sign',
-            'items' => [
-                ['label' => 'About', 'icon'=>'info-sign', 'url'=>'#'],
-                ['label' => 'Contact', 'icon'=>'phone', 'url'=>'#'],
-            ],
-        ],
-    ],
-]);*/
 ?>
-    <div class="container">
+<div class="row">
+        <div class="col-sm-2 bs-docs-sidebar">
+            <div class="span3 bs-docs-sidebar">
+
+                <?php
+                $items=[
+                   ['label' => 'Role', 'url' => ['/role/index'],
+                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
+            ],
+            ['label' => Yii::t('app','Countries'), 'url' => ['/country/index'],
+               'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
+            ],
+            ['label' => 'Prefecture', 'url' => ['/prefecture/index'],
+                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
+            ],
+            ['label' => 'City', 'url' => ['/city/index'],
+                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
+            ],
+            ['label' => 'Crmtype', 'url' => ['/crmtype/index'],
+                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
+            ],
+            ['label' => Yii::t('app','Contacts'), 'icon'=>'user','url' => ['/rvperson/index'],
+                'visible'=>!Yii::$app->user->isGuest
+            ],
+            ['label' => Yii::t('app','Crmlogs'), 'icon'=>'list-alt', 'url' => ['/crmlog/index'],
+                'visible'=>!Yii::$app->user->isGuest
+            ],
+            ['label' => Yii::t('app','Calendar'),'icon'=>'calendar', 'url' => ['/site/calendar'],
+                'visible'=>!Yii::$app->user->isGuest
+            ],  
+                ];
+                  echo SideNav::widget([
+    'type' => SideNav::TYPE_DEFAULT,
+    'items' => $items
+]);
+
+                ?>
+            </div>
+        </div>
+    <?php
+
+?>
+    <div class="col-sm-10" style="padding-left: 40px">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

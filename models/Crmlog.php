@@ -13,6 +13,8 @@ use Yii;
  * @property integer $accountid
  * @property integer $rvpersonid
  * @property string $createddate
+ * @property string $fromdate
+ * @property string $todate
  * @property integer $status
  *
  * @property Crmtype $crmtype
@@ -38,19 +40,38 @@ class Crmlog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['crmtypeid', 'description', 'accountid', 'rvpersonid', 'createddate', 'status'], 'required'],
+            [['crmtypeid', 'accountid', 'rvpersonid', 'createddate', 'status','fromdate','todate','description'], 'required'],
             [['crmtypeid', 'accountid', 'rvpersonid', 'status'], 'integer'],
             [['description'], 'string'],
-            [['createddate'], 'safe'],
+            [['createddate','fromdate', 'todate'], 'safe'],
             [['crmtypeid'], 'exist', 'skipOnError' => true, 'targetClass' => Crmtype::className(), 'targetAttribute' => ['crmtypeid' => 'crmtypeid']],
             [['accountid'], 'exist', 'skipOnError' => true, 'targetClass' => Account::className(), 'targetAttribute' => ['accountid' => 'accountid']],
             [['rvpersonid'], 'exist', 'skipOnError' => true, 'targetClass' => Rvperson::className(), 'targetAttribute' => ['rvpersonid' => 'rvpersonid']],
+            [['todate'], 'compare','compareAttribute'=>'fromdate','operator'=>'>','message'=>'To date cannot be smaller than From date'],
+            [['accountid', 'fromdate'], 'unique', 'targetAttribute' => ['accountid', 'fromdate'],'message'=>'time and place is busy place select new one.','on'=>'create'],
+            [['accountid','todate'], 'checkDate','on'=>'create'],
+            //[['accountid','todate'], 'checkDate', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
 
     /**
      * @inheritdoc
      */
+    public function checkDate($attribute, $params)
+    {
+        $thereIsAnOverlapping = Crmlog::find()->where(
+            ['AND',
+                ['accountid' => $this->accountid],
+                ['<=', 'fromdate', $this->fromdate],
+                ['>=', 'todate', $this->todate]
+            ])->exists();
+
+        if($thereIsAnOverlapping){
+            $this->addError($attribute, 'This place and time is busy, selcet new place or change time.');
+        }
+
+
+    }
     public function attributeLabels()
     {
         return [
@@ -60,7 +81,10 @@ class Crmlog extends \yii\db\ActiveRecord
             'accountid' => 'Accountid',
             'rvpersonid' => 'Rvpersonid',
             'createddate' => Yii::t('app','Date'),
-            'status' => 'Status',
+            'status' => Yii::t('app','Status'),
+            'fromdate'=>Yii::t('app','From'),
+            'todate'=>Yii::t('app','To'),
+
         ];
     }
 
@@ -87,4 +111,6 @@ class Crmlog extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Rvperson::className(), ['rvpersonid' => 'rvpersonid']);
     }
+
+   
 }

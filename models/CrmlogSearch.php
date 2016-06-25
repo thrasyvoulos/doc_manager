@@ -19,7 +19,7 @@ class CrmlogSearch extends Crmlog
     {
         return [
             [['crmlogid', 'crmtypeid', 'accountid', 'rvpersonid', 'status'], 'integer'],
-            [['description', 'createddate'], 'safe'],
+            [['description', 'createddate', 'fromdate','todate'], 'safe'],
         ];
     }
 
@@ -42,8 +42,10 @@ class CrmlogSearch extends Crmlog
     public function search($params)
     {
         if(Yii::$app->user->identity->roleid==Role::ROLE_USER){
-           $query = Crmlog::find()->where(['accountid' => Yii::$app->user->identity->accountid]);
+           $query = Crmlog::find()->where(['accountid' => Yii::$app->user->identity->accountid])
+               ->orderBy(['createddate' => SORT_DESC]);
         } else {
+
            $query = Crmlog::find();
         }
       
@@ -69,7 +71,10 @@ class CrmlogSearch extends Crmlog
             'accountid' => $this->accountid,
             'rvpersonid' => $this->rvpersonid,
             'DATE(createddate)' => $this->createddate,
+            'DATE(fromdate)' => $this->fromdate,
+            'DATE(todate)' => $this->todate,
             'status' => $this->status,
+
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description]);

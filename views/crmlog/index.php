@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+//use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\editable\Editable;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CrmlogSearch */
@@ -14,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="crmlog-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php 
-
+    <?php
+ 
 // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -45,19 +47,37 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
             //'accountid',
             'rvperson.lastname',
-           [
-            'attribute' => 'createddate',
-            'value' => 'createddate',
-            'filter' => kartik\date\DatePicker::widget([
-                 'model'=>$searchModel,
-                 'attribute'=>'createddate',
-                 'pluginOptions' => [
-                 'autoclose'=>true,
-                 'format' => 'yyyy-mm-dd'
-                ],
-                'language' => 'en']),
-            //'format' => 'html',
-        ],
+
+            [
+                'attribute'=>'fromdate',
+                'value'=>'fromdate',
+                'filter' => kartik\date\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'fromdate',
+                    'pluginOptions' => [
+                        'autoclose'=>true,
+                        'format' => 'yyyy-mm-dd'
+                    ],
+
+                    'language' => 'en']),
+
+            ],
+            [
+                'attribute'=>'todate',
+                'value'=>'todate',
+                'filter' => kartik\date\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'todate',
+                    'pluginOptions' => [
+                        'autoclose'=>true,
+                        'format' => 'yyyy-mm-dd'
+                    ],
+
+                    'language' => 'en']),
+
+            ],
+           // 'fromdate',
+           // 'todate',
             [
             'attribute' => 'status',
             'format' => 'raw',

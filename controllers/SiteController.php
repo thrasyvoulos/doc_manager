@@ -53,7 +53,8 @@ class SiteController extends Controller
         //var_dump(isset(Yii::$app->session['user']));exit;
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['crmlog/index']);
+            //return $this->goBack();
         }
         return $this->render('login', [
             'model' => $model,
@@ -68,7 +69,8 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['crmlog/index']);
+           // return $this->goBack();
         }
         return $this->render('login', [
             'model' => $model,

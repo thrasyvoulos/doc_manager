@@ -8,16 +8,16 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Countries';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = Yii::t('app','Countries');
 ?>
 
 <div class="country-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?php echo Yii::t('app','Countries'); ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php /*?><?= Html::a('Create Country', ['create'], ['class' => 'btn btn-success']) ?><?php*/ ?>
+        <?php /*?><?= Html::a('Create Country','icon'=>'plus', ['create'], ['class' => 'btn btn-success']) ?><?php*/ ?>
     </p>
     <!-- Render create form -->    
     <?= $this->render('_form', [

@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\RvpersonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Rvpeople';
+$this->title = Yii::t('app','Contacts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rvperson-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Rvperson', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app','Create Contact'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php
     echo GridView::widget([
