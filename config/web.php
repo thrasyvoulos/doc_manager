@@ -8,6 +8,7 @@ $config = [
     'bootstrap' => ['log'],
      'language' => 'el',
     'components' => [
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'eZadjAGbrb38OwG24WuoRai2QySe0kRU',
@@ -38,7 +39,17 @@ $config = [
                 ],
             ],
         ],
-      
+        'assetManager' => [
+            'bundles' => [
+                'dosamigos\google\maps\MapAsset' => [
+                    'options' => [
+                        'key' => 'AIzaSyCIag5Rjp4335igKX52OTPVPcHARkzE6h0',
+                        'language' => 'el',
+                        'version' => '3.1.18'
+                    ]
+                ]
+            ]
+        ],
        'i18n' => [
         'translations' => [
             'app*' => [
@@ -52,7 +63,7 @@ $config = [
             ],
         ],
     ],
-         
+
         'db' => require(__DIR__ . '/db.php'),
         /*
         'urlManager' => [

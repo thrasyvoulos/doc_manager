@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Country */
 
-$this->title = 'Update Country: ' . $model->countryid;
-$this->params['breadcrumbs'][] = ['label' => 'Countries', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->countryid, 'url' => ['view', 'id' => $model->countryid]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = Yii::t('app','Update Country');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Countries'), 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => $model->countryid, 'url' => ['view', 'id' => $model->countryid]];
+$this->params['breadcrumbs'][] = Yii::t('app','Update');
 ?>
 <div class="country-update">
 

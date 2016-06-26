@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Prefecture;
-use app\models\PrefectureSearch;
+use app\models\Specialties;
+use app\models\SpecialtiesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PrefectureController implements the CRUD actions for Prefecture model.
+ * SpecialtiesController implements the CRUD actions for Specialties model.
  */
-class PrefectureController extends Controller
+class SpecialtiesController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,23 +30,28 @@ class PrefectureController extends Controller
     }
 
     /**
-     * Lists all Prefecture models.
+     * Lists all Specialties models.
      * @return mixed
      */
-
     public function actionIndex()
-    {
-        $searchModel = new PrefectureSearch();
+    {     $model = new Specialties();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            $model = new Specialties(); //reset model
+        }
+        $searchModel = new SpecialtiesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model'=>$model
         ]);
     }
 
     /**
-     * Displays a single Prefecture model.
+     * Displays a single Specialties model.
      * @param integer $id
      * @return mixed
      */
@@ -58,16 +63,17 @@ class PrefectureController extends Controller
     }
 
     /**
-     * Creates a new Prefecture model.
+     * Creates a new Specialties model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Prefecture();
-        $model->countryid=1;
+        $model = new Specialties();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->prefectureid]);
+            return $this->redirect(['index']);
+            //return $this->redirect(['view', 'id' => $model->specialtiesid]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -76,7 +82,7 @@ class PrefectureController extends Controller
     }
 
     /**
-     * Updates an existing Prefecture model.
+     * Updates an existing Specialties model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -86,7 +92,7 @@ class PrefectureController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->prefectureid]);
+            return $this->redirect(['view', 'id' => $model->specialtiesid]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -95,7 +101,7 @@ class PrefectureController extends Controller
     }
 
     /**
-     * Deletes an existing Prefecture model.
+     * Deletes an existing Specialties model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -108,15 +114,15 @@ class PrefectureController extends Controller
     }
 
     /**
-     * Finds the Prefecture model based on its primary key value.
+     * Finds the Specialties model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Prefecture the loaded model
+     * @return Specialties the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Prefecture::findOne($id)) !== null) {
+        if (($model = Specialties::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

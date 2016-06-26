@@ -44,8 +44,8 @@ class Prefecture extends \yii\db\ActiveRecord
     {
         return [
             'prefectureid' => 'Prefectureid',
-            'prefecturename' => 'Prefecturename',
-            'countryid' => 'Countryid',
+            'prefecturename' => Yii::t('app','Prefecture Name'),
+            'countryid' => Yii::t('app','Countries'),
         ];
     }
 

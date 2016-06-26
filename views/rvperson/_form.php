@@ -7,6 +7,18 @@ use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\label\LabelInPlace;
+use dosamigos\google\maps\LatLng;
+use dosamigos\google\maps\services\DirectionsWayPoint;
+use dosamigos\google\maps\services\TravelMode;
+use dosamigos\google\maps\overlays\PolylineOptions;
+use dosamigos\google\maps\services\DirectionsRenderer;
+use dosamigos\google\maps\services\DirectionsService;
+use dosamigos\google\maps\overlays\InfoWindow;
+use dosamigos\google\maps\overlays\Marker;
+use dosamigos\google\maps\Map;
+use dosamigos\google\maps\services\DirectionsRequest;
+use dosamigos\google\maps\overlays\Polygon;
+use dosamigos\google\maps\layers\BicyclingLayer;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Rvperson */
@@ -95,12 +107,61 @@ echo $form->field($model, 'sex')->widget(Select2::classname(), [
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'gps')->textInput(['maxlength' => true]) ?>
-
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    </head>
+    <script>
+        var address='';
+        var zipcode='';
+        var z= document.getElementById('rvperson-gps').value;
+        //console.log(z);
 
+        $('#rvperson-address').on('change', function() {
+
+            address=this.value;
+
+            //var map;
+
+        });
+        $('#rvperson-zipcode').on('change', function() {
+            zipcode=this.value;
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode( { 'address': address+','+zipcode}, function(results, status) {
+
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    document.getElementById('rvperson-gps').value =latitude+','+longitude;
+                    console.log(latitude);
+                    console.log(longitude);
+                }
+            });
+        });
+
+    </script>
+<?php
+
+?>
 </div>
+
+
+
+<head>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIag5Rjp4335igKX52OTPVPcHARkzE6h0"
+            async defer></script>
+
+</head>
+
+<script>
+
+
+</script>

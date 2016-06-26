@@ -72,16 +72,16 @@ AppAsset::register($this);
 
                 <?php
                 $items=[
-                   ['label' => 'Role', 'url' => ['/role/index'],
+                   ['label' => 'Role','icon'=>'sunglasses', 'url' => ['/role/index'],
                 'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],
-            ['label' => Yii::t('app','Countries'), 'url' => ['/country/index'],
+            ['label' => Yii::t('app','Countries'),'icon'=>'globe', 'url' => ['/country/index'],
                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],
-            ['label' => 'Prefecture', 'url' => ['/prefecture/index'],
+            ['label' => Yii::t('app','Prefectures'), 'icon'=>'list-alt', 'url' => ['/prefecture/index'],
                 'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],
-            ['label' => 'City', 'url' => ['/city/index'],
+            ['label' => 'City', 'icon'=>'list', 'url' => ['/city/index'],
                 'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],
             ['label' => 'Crmtype', 'url' => ['/crmtype/index'],
@@ -90,12 +90,18 @@ AppAsset::register($this);
             ['label' => Yii::t('app','Contacts'), 'icon'=>'user','url' => ['/rvperson/index'],
                 'visible'=>!Yii::$app->user->isGuest
             ],
-            ['label' => Yii::t('app','Crmlogs'), 'icon'=>'list-alt', 'url' => ['/crmlog/index'],
+            ['label' => Yii::t('app','Specialties'),'icon'=>'list', 'url' => ['/specialties/index'],
+                'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
+            ],
+                    ['label' => Yii::t('app','Crmlogs'), 'icon'=>'list-alt', 'url' => ['/crmlog/index'],
                 'visible'=>!Yii::$app->user->isGuest
             ],
             ['label' => Yii::t('app','Calendar'),'icon'=>'calendar', 'url' => ['/site/calendar'],
                 'visible'=>!Yii::$app->user->isGuest
-            ],  
+            ],
+            ['label' => Yii::t('app','Profile'),'icon'=>'user', 'url' => ['/profile/index'],
+                        'visible'=>!Yii::$app->user->isGuest
+            ],
                 ];
                   echo SideNav::widget([
     'type' => SideNav::TYPE_DEFAULT,

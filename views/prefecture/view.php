@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Prefecture */
 
-$this->title = $model->prefectureid;
-$this->params['breadcrumbs'][] = ['label' => 'Prefectures', 'url' => ['index']];
+$this->title = $model->prefecturename;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Prefectures'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="prefecture-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->prefectureid], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->prefectureid], [
+        <?= Html::a(Yii::t('app','Update'), ['update', 'id' => $model->prefectureid], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app','Delete'), ['delete', 'id' => $model->prefectureid], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

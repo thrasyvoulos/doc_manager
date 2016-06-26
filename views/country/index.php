@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\CountrySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Countries';
+$this->title = Yii::t('app','Countries');
 $this->params['breadcrumbs'][] = Yii::t('app','Countries');
 ?>
 

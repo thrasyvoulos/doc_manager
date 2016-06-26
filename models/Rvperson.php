@@ -66,7 +66,7 @@ class Rvperson extends \yii\db\ActiveRecord
             'address' => Yii::t('app','Address'),
             'zipcode' => Yii::t('app','Zip Code'),
             'birthdate' => Yii::t('app','Birthdate'),
-            'birthplace' => Yii::t('app','Birthdate'),
+            'birthplace' => Yii::t('app','Birthplace'),
             'sex' =>Yii::t('app','Sex'),
             'mobilephone' => Yii::t('app','Mobile phone'),
             'telephone' => Yii::t('app','Telephone'),
@@ -96,9 +96,16 @@ class Rvperson extends \yii\db\ActiveRecord
         public function getSex()
         {
             return array(
-                self::SEX_MALE=>'Male',
-                self::SEX_FEMALE=>'Female',
+                self::SEX_MALE=>Yii::t('app','Male'),
+                self::SEX_FEMALE=>Yii::t('app','Female'),
                 );
         }
-        
+    public function getSex2()
+    {
+        if($this->sex==1){
+            return Yii::t('app','Male');
+        }else {
+            return Yii::t('app','Female');
+        }
+    }
 }
