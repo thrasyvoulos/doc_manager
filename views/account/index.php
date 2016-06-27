@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AccountSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Accounts';
+$this->title = Yii::t('app','Accounts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="account-index">

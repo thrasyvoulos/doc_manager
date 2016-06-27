@@ -39,9 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
            // 'crmlogid',
             [
-              'attribute'=>'crmtype.description',
+              'attribute'=>'crmtypeid',
+                'value'=>'crmtype.description',
               'header'=>'crmtype',
-               'filter'=>Html::activeDropDownList($searchModel, 'crmtypeid', \yii\helpers\ArrayHelper::map(\app\models\Crmtype::find()->asArray()->all(),'crmtypeid','description'))
+               'filter'=>Html::activeDropDownList($searchModel, 'crmtypeid', \yii\helpers\ArrayHelper::map(\app\models\Crmtype::find()->asArray()->all(),'crmtypeid','description'),[
+                   'prompt' => '-',
+                   // 'options' => ['840' => ['selected'=>'selected']]
+               ])
             ],
            // 'crmtype.description',
             'description:ntext',

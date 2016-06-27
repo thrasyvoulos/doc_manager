@@ -42,6 +42,13 @@ return [
     'Profiles'=>'Προφίλ',
     'Create Profile'=>'Δημιουργία Προφίλ',
     'Update Profile'=>'Ενημέρωση Προφίλ',
-    'City'=>'Πόλη'
+    'City'=>'Πόλη',
+    'Username'=>'Όνομα χρήστη',
+    'Password'=>'Κωδικός',
+    'Create Account'=>'Δημιουργία Λογαριασμού',
+    'Update Account'=>'Ενημέρωση Λογαριασμού',
+    'Account'=>'Λογαριασμός',
+    'Accounts'=>'Λογαριασμοί',
+    'Logout'=>'Αποσύνδεση'
     
 ];

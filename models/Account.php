@@ -50,10 +50,10 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'accountid' => 'Accountid',
-            'firstname' => 'Firstname',
-            'lastname' => 'Lastname',
-            'username' => 'Username',
-            'password' => 'Password',
+            'firstname' => Yii::t('app','First Name') ,
+            'lastname' => Yii::t('app','Last Name') ,
+            'username' => Yii::t('app','Username') ,
+            'password' => Yii::t('app','Password') ,
             'email' => 'Email',
             'active' => 'Active',
             'roleid' => 'Roleid',

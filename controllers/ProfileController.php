@@ -3,6 +3,9 @@
 namespace app\controllers;
 
 use app\models\Account;
+use app\models\City;
+use app\models\Country;
+use app\models\Prefecture;
 use Yii;
 use app\models\Profile;
 use app\models\ProfileSearch;
@@ -112,7 +115,15 @@ class ProfileController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $city = City::find()
+            ->where(['cityid' => $model->cityid])->one();
+        $prefecture = Prefecture::find()
+            ->where(['prefectureid' => $city->prefectureid])->one();
+        $country = Country::find()
+            ->where(['countryid' => $prefecture->countryid])->one();
 
+        $model->prefectureid=$prefecture->prefectureid;
+        $model->countryid=$country->countryid;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->profileid]);
         } else {

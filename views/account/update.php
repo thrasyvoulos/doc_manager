@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Account */
 
-$this->title = 'Update Account: ' . $model->username;
-$this->params['breadcrumbs'][] = ['label' => 'Accounts', 'url' => ['index']];
+$this->title = Yii::t('app','Update Account');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Accounts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->accountid]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = Yii::t('app','Update');
 ?>
 <div class="account-update">
 

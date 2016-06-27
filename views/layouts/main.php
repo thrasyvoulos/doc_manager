@@ -46,7 +46,7 @@ AppAsset::register($this);
             /*['label' => 'Accountrvperson', 'url' => ['/accountrvperson/index'],
                 //'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],*/
-            ['label' => 'Account', 'url' => ['/account/index'],
+            ['label' => Yii::t('app','Account'), 'url' => ['/account/index'],
                 'visible'=>!Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
@@ -54,7 +54,7 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                     Yii::t('app','Logout').' '.'(' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link']
                 )
                 . Html::endForm()
