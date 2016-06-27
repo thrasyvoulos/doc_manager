@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'fathername',
             'city.cityname',
             'address',
+       
             // 'zipcode',
             // 'birthdate',
             // 'birthplace',

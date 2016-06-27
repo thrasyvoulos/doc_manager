@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProfileSearch */
@@ -52,7 +53,38 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'gps',
             // 'createddate',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template'=>'{view}{update}{delete}{map}',
+                'buttons'=>[
+                    'map' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-map-marker"></span>', $url, [
+                            'title' => Yii::t('yii', 'Map'),
+                        ]);
+
+                    },
+
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'map') {
+                        $url =Url::to(['profile/map', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+                    else if($action==='view'){
+                        $url = Url::to(['profile/view', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+                    else if($action==='update'){
+                        $url = Url::to(['profile/update', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+                    else if($action==='delete'){
+                        $url = Url::to(['profile/delete', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+
+                }
+
+            ],
         ],
     ]); ?>
 </div>

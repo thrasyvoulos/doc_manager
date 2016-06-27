@@ -76,6 +76,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'language' => 'en']),
 
             ],
+            [
+                'attribute'=>'accountid',
+                'value'=>'account.username',
+                'visible'=>Yii::$app->user->identity->roleid==\app\models\Role::ROLE_ADMIN,
+                'filter'=>Html::activeDropDownList($searchModel, 'accountid',\yii\helpers\ArrayHelper::map(\app\models\Account::find()->asArray()->all(),'accountid','username'),[
+                    'prompt' => '-',
+                    // 'options' => ['840' => ['selected'=>'selected']]
+                ])
+
+            ],
            // 'fromdate',
            // 'todate',
             [
@@ -122,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-</head> 
+</head>
 <script>
 var checked;
  var concat;

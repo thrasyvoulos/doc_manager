@@ -24,7 +24,7 @@ use kartik\widgets\Select2;
 
     <?= $form->field($model, 'fathersname')->textInput(['maxlength' => true]) ?>
     <?php
-    $data=ArrayHelper::map(\app\models\Specialties::find()->all(), 'specialtiesid', 'description');
+    $data=ArrayHelper::map(\app\models\Specialties::find()->orderBy(['description' => SORT_ASC])->all(), 'specialtiesid', 'description');
     //var_dump($data);exit;
     echo $form->field($model, 'specialtiesid')->widget(Select2::classname(), [
         'data' => $data,

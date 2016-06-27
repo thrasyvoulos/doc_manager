@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Role;
 use Yii;
 use app\models\Crmlog;
 use app\models\CrmlogSearch;
@@ -34,9 +35,14 @@ class CrmlogController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    { Yii::$app->getSession()->setFlash('success', 'Your Text Here..');
+    {
+
 
         $searchModel = new CrmlogSearch();
+        if(Yii::$app->user->identity->roleid==Role::ROLE_ADMIN){
+            $searchModel->accountid='-';
+        }
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

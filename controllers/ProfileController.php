@@ -121,7 +121,12 @@ class ProfileController extends Controller
             ]);
         }
     }
-
+    public function actionMap($id){
+        $model = $this->findModel($id);
+        return $this->render('map', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Deletes an existing Profile model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
