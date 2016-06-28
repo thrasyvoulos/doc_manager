@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-
+use yii\data\ActiveDataProvider;
 class SiteController extends Controller
 {
     public function behaviors()
@@ -81,7 +81,8 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        //return $this->goHome();
+        return $this->actionLogin();
     }
 
     public function actionContact()
@@ -96,7 +97,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
+  
     public function actionAbout()
     {
         return $this->render('about');

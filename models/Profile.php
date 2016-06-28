@@ -22,6 +22,7 @@ use Yii;
  * @property string $mobilephone
  * @property string $telephone
  * @property string $email
+ * @property string $note
  * @property string $gps
  * @property string $createddate
  *
@@ -47,10 +48,11 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['accountid', 'specialtiesid', 'firstname', 'lastname', 'cityid', 'address', 'zipcode',  'sex', 'mobilephone', 'email','createddate'], 'required'],
+            [['accountid', 'specialtiesid', 'firstname', 'lastname', 'cityid', 'address', 'zipcode',  'sex', 'mobilephone', 'email','createddate'], 'required','on'=>'create'],
             [['accountid', 'specialtiesid', 'cityid', 'sex'], 'integer'],
             [['birthdate', 'createddate'], 'safe'],
             [['firstname', 'lastname', 'address', 'birthplace', 'email', 'gps','fathersname'], 'string', 'max' => 50],
+            [['note'], 'string', 'max' => 1000],
             [['zipcode', 'mobilephone', 'telephone'], 'string', 'max' => 20],
             [['accountid'], 'exist', 'skipOnError' => true, 'targetClass' => Account::className(), 'targetAttribute' => ['accountid' => 'accountid']],
             [['specialtiesid'], 'exist', 'skipOnError' => true, 'targetClass' => Specialties::className(), 'targetAttribute' => ['specialtiesid' => 'specialtiesid']],
@@ -83,7 +85,7 @@ class Profile extends \yii\db\ActiveRecord
             'createddate' => Yii::t('app', 'Createddate'),
             'countryid'=>Yii::t('app','Country'),
             'prefectureid'=>Yii::t('app','Prefecture'),
-            'spe'
+            'note'=>Yii::t('app','Note')
 
         ];
     }

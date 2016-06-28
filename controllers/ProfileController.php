@@ -32,7 +32,7 @@ class ProfileController extends Controller
                 ],
 
             ],
-            'access' => [
+            /*'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['create','update','index','view','delete'],
                 'rules' => [
@@ -44,13 +44,13 @@ class ProfileController extends Controller
                     ],
                     // allow authenticated users
                     [
-                        'allow' => true,
+                        /*'allow' => true,
                         'roles' => ['@'],
                     ],
                     // everything else is denied
-                ],
-            ],
-        ];
+                ],*/
+            ];
+        
     }
 
     /**
@@ -69,7 +69,23 @@ class ProfileController extends Controller
             'model'=>$model
         ]);
     }
-
+    public function actionSearch()
+    {   
+        //$model=new Profile();
+       // $model->countryid=1;
+         $searchModel = new ProfileSearch();
+        /*if ($searchModel->load(Yii::$app->request->post()))
+        {
+            $model = new ProfileSearch(); //reset model
+        }*/
+       
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('_search', [
+            'model' => $searchModel,
+            'dataProvider' => $dataProvider,
+           // 'model'=>$model
+            ]); 
+    }
     /**
      * Displays a single Profile model.
      * @param integer $id
@@ -90,13 +106,15 @@ class ProfileController extends Controller
     public function actionCreate()
     {
         $query = Account::find()->where(['accountid' => Yii::$app->user->identity->accountid])->one();
-        //var_dump($query);exit;
+       
         $model = new Profile();
+        $model->scenario='create';
         $model->firstname=$query->firstname;
         $model->lastname=$query->lastname;
         $model->email=$query->email;
         $model->accountid=Yii::$app->user->identity->accountid;
         $model->createddate=date('Y-m-d');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->profileid]);
         } else {
@@ -115,6 +133,7 @@ class ProfileController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario='create';
         $city = City::find()
             ->where(['cityid' => $model->cityid])->one();
         $prefecture = Prefecture::find()
@@ -125,6 +144,7 @@ class ProfileController extends Controller
         $model->prefectureid=$prefecture->prefectureid;
         $model->countryid=$country->countryid;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->profileid]);
         } else {
             return $this->render('update', [

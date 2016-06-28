@@ -40,8 +40,11 @@ class ProfileSearch extends Profile
      * @return ActiveDataProvider
      */
     public function search($params)
-    {
-        if(Yii::$app->user->identity->roleid==Role::ROLE_USER){
+    {   
+        if(Yii::$app->user->isGuest){
+            $query = Profile::find();
+        }
+        else if(Yii::$app->user->identity->roleid==Role::ROLE_USER){
             $query = Profile::find()->where(['accountid' => Yii::$app->user->identity->accountid]);
         }else {
             $query = Profile::find();
@@ -82,6 +85,7 @@ class ProfileSearch extends Profile
             ->andFilterWhere(['like', 'mobilephone', $this->mobilephone])
             ->andFilterWhere(['like', 'telephone', $this->telephone])
             ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'note', $this->note])
             ->andFilterWhere(['like', 'gps', $this->gps]);
 
         return $dataProvider;

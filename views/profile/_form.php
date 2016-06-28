@@ -5,11 +5,18 @@ use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\Select2;
+use dosamigos\ckeditor\CKEditor;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Profile */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<style type="text/css">
+ div.required label.control-label:after {
+    content: " *";
+    color: red;
+}   
+</style>
 <div class="profile-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -96,7 +103,11 @@ use kartik\widgets\Select2;
     <?= $form->field($model, 'telephone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'note')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
+  
     <?= $form->field($model, 'gps')->textInput(['maxlength' => true]) ?>
 
 

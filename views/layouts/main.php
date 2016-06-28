@@ -42,7 +42,8 @@ AppAsset::register($this);
             
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            
+            ['label' => 'Search', 'url' => ['/profile/search'],
+            'visible'=>Yii::$app->user->isGuest],
             /*['label' => 'Accountrvperson', 'url' => ['/accountrvperson/index'],
                 //'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],*/

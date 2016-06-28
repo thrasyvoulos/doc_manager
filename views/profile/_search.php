@@ -1,7 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\grid\GridView;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use yii\data\ActiveDataProvider;
+use kartik\widgets\Select2;
+use kartik\form\ActiveForm;
+use yii\widgets\Pjax;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfileSearch */
@@ -9,49 +16,91 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="profile-search">
+<?= $this->render('_searchform', [
+        'model' => $model,
+    ]) ?>
+    <?php Pjax::begin(['id'=>'myid']); ?>
+<?php 
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+  echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        //'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-    <?= $form->field($model, 'profileid') ?>
+            //'profileid',
+            //'accountid',
+            'specialties.description',
+            'firstname',
+            'lastname',
+            [
+              'attribute'=>'city.cityname',
+                'header'=>Yii::t('app','City')
+            ],
+             //'city.cityname',
+             'address',
+             [
+                'attribute'=>'note',
+                'format'=>'raw'
+            ],
+            // 'zipcode',
+            // 'birthdate',
+            // 'birthplace',
+            // 'sex',
+            // 'mobilephone',
+            // 'telephone',
+            // 'email:email',
+            // 'gps',
+            // 'createddate',
 
-    <?= $form->field($model, 'accountid') ?>
+            ['class' => 'yii\grid\ActionColumn',
+                'template'=>'{view}{update}{delete}{map}',
+                'buttons'=>[
+                    'map' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-map-marker"></span>', $url, [
+                            'title' => Yii::t('yii', 'Map'),
+                        ]);
 
-    <?= $form->field($model, 'specialtiesid') ?>
+                    },
 
-    <?= $form->field($model, 'firstname') ?>
+                ],
+                'visibleButtons' => [
+                'update' => function ($model, $key, $index) {
+                    return Yii::$app->user->isGuest ? false : true;
+                },
+                'delete' => function ($model, $key, $index) {
+                    return Yii::$app->user->isGuest ? false : true;
+                },
+                 'view' => function ($model, $key, $index) {
+                    return Yii::$app->user->isGuest ? false : true;
+                }
+            ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'map') {
+                        $url =Url::to(['profile/map', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+                    else if($action==='view'){
+                        $url = Url::to(['profile/view', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+                    else if($action==='update'){
+                        $url = Url::to(['profile/update', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+                    else if($action==='delete'){
+                        $url = Url::to(['profile/delete', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
 
-    <?= $form->field($model, 'lastname') ?>
+                }
 
-    <?php // echo $form->field($model, 'cityid') ?>
+            ],
+        ],
+    ]);        
 
-    <?php // echo $form->field($model, 'address') ?>
+?>
+ <?php Pjax::end(); ?>
 
-    <?php // echo $form->field($model, 'zipcode') ?>
-
-    <?php // echo $form->field($model, 'birthdate') ?>
-
-    <?php // echo $form->field($model, 'birthplace') ?>
-
-    <?php // echo $form->field($model, 'sex') ?>
-
-    <?php // echo $form->field($model, 'mobilephone') ?>
-
-    <?php // echo $form->field($model, 'telephone') ?>
-
-    <?php // echo $form->field($model, 'email') ?>
-
-    <?php // echo $form->field($model, 'gps') ?>
-
-    <?php // echo $form->field($model, 'createddate') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
+ 
 </div>

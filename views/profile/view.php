@@ -47,6 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'mobilephone',
             'telephone',
             'email:email',
+            [
+                'attribute'=>'note',
+                'format'=>'raw'
+            ],
+            //'note',
             'gps',
             'createddate',
         ],

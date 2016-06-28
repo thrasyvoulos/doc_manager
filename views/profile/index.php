@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
-
+use yii\data\ActiveDataProvider;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProfileSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -43,6 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
              //'city.cityname',
              'address',
+             [
+                'attribute'=>'note',
+                'format'=>'raw'
+            ],
             // 'zipcode',
             // 'birthdate',
             // 'birthplace',
