@@ -4,13 +4,24 @@ use yii\helpers\Html;
 //use yii\grid\GridView;
 use kartik\grid\GridView;
 use kartik\editable\Editable;
-
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CrmlogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title =Yii::t('app','Crmlogs');
 $this->params['breadcrumbs'][] = $this->title;
+?>
+<?php
+/*
+$script = <<< JS
+$(indexcrm).ready(function() {
+    setInterval(function() {     
+      $.pjax.reload({container:'#myid'});
+    }, 5000); 
+});
+JS;
+$this->registerJs($script);*/
 ?>
 
 <div class="crmlog-index">
@@ -19,10 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
  
 // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        
-    </p>
+  <?php Pjax::begin(['id'=>'myid']); ?>
+   
     <?= GridView::widget([
         'id'=>'indexcrm',
         'dataProvider' => $dataProvider,
@@ -41,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
               'attribute'=>'crmtypeid',
                 'value'=>'crmtype.description',
-              'header'=>'crmtype',
+              'header'=>Yii::t('app','Type'),
                'filter'=>Html::activeDropDownList($searchModel, 'crmtypeid', \yii\helpers\ArrayHelper::map(\app\models\Crmtype::find()->asArray()->all(),'crmtypeid','description'),[
                    'prompt' => '-',
                    // 'options' => ['840' => ['selected'=>'selected']]
@@ -50,7 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
            // 'crmtype.description',
             'description:ntext',
             //'accountid',
-            'rvperson.lastname',
+            [
+                //'attribute'=>'rvpersonid',
+                'value'=>'rvperson.fullname',
+                'header'=>Yii::t('app','Full Name'),
+                
+            ],
+            //'rvperson.lastname',
 
             [
                 'attribute'=>'fromdate',
@@ -66,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'language' => 'en']),
 
             ],
-            [
+            /*[
                 'attribute'=>'todate',
                 'value'=>'todate',
                 'filter' => kartik\date\DatePicker::widget([
@@ -79,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     'language' => 'en']),
 
-            ],
+            ],*/
             [
                 'attribute'=>'accountid',
                 'value'=>'account.username',
@@ -131,13 +146,36 @@ $this->params['breadcrumbs'][] = $this->title;
   $events[] = $Event;*/
  
   ?>
- 
+   <?php Pjax::end(); ?>
 </div>
 
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 <script>
+ var lastid=0;
+ function checkfornewid(){
+        
+        $.ajax({
+        type: "POST",
+        url: '<?php echo Yii::$app->urlManager->createUrl('crmlog/check'); ?>',
+        success: function(arr){
+            if(lastid!=arr){  
+                $.pjax.reload({container:'#myid'});
+                lastid=arr;
+            }
+         
+        }
+    }); }
+$(document).ready(function(){
+
+   setInterval(checkfornewid, 6000);
+        
+});
+    $( document ).ready(function() {
+    
+  
+}); 
 var checked;
  var concat;
 function clickedVal(clicked_id){
@@ -163,6 +201,6 @@ if (c.checked) {
         }
     });
 }   
-    
+   
     
 </script>

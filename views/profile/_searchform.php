@@ -19,15 +19,17 @@ use yii\widgets\Pjax;
 $this->registerJs(
     '$("document").ready(function(){ 
         $("#searchid").on("pjax:end", function() {
+      
             $.pjax.reload({container:"#myid"});  //Reload GridView
         });
     });'
 );
 ?>
-    <?php Pjax::begin(['id'=>'searchid']); ?>
+    <?php 
+    Pjax::begin(['id'=>'searchid']); ?>
 <?php $form = ActiveForm::begin([
-        'action' => ['search'],
-        'method' => 'get',
+         'action' => ['search'],
+         'method' => 'get',
     ]); ?>
 
     <?= $form->field($model, 'firstname') ?>
@@ -85,3 +87,5 @@ $this->registerJs(
 
 <?php ActiveForm::end(); ?>
  <?php Pjax::end(); ?>
+
+ 

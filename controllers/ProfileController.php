@@ -74,7 +74,8 @@ class ProfileController extends Controller
         //$model=new Profile();
        // $model->countryid=1;
          $searchModel = new ProfileSearch();
-        /*if ($searchModel->load(Yii::$app->request->post()))
+        /* $model=new ProfileSearch();
+        if ($searchModel->load(Yii::$app->request->post()))
         {
             $model = new ProfileSearch(); //reset model
         }*/

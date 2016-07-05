@@ -71,7 +71,7 @@ echo $form->field($model, 'fromdate')->widget(
     //  'stepping' => 30,
     //],
 ]);
-echo $form->field($model, 'todate')->widget(
+/*echo $form->field($model, 'todate')->widget(
     kartik\datetime\DateTimePicker::className(), [
     'pluginOptions' => [
         'autoclose'=>true,
@@ -82,7 +82,7 @@ echo $form->field($model, 'todate')->widget(
     //'format' => 'L LT',
     //  'stepping' => 30,
     //],
-]);
+]);*/
 $items3 = ArrayHelper::map(\app\models\Crmtype::find()->all(), 'crmtypeid', 'description'); ?>
      <?= $form->field($model, 'crmtypeid')->dropDownList($items3,['prompt'=>'-Choose a Category-',
      ]); ?>

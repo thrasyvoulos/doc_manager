@@ -47,18 +47,24 @@ use yii\widgets\Pjax;
             // 'birthdate',
             // 'birthplace',
             // 'sex',
-            // 'mobilephone',
+            'mobilephone',
             // 'telephone',
-            // 'email:email',
+            'email:email',
             // 'gps',
             // 'createddate',
 
             ['class' => 'yii\grid\ActionColumn',
-                'template'=>'{view}{update}{delete}{map}',
+                'template'=>'{view}{update}{delete}{map}{appointment}',
                 'buttons'=>[
                     'map' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-map-marker"></span>', $url, [
                             'title' => Yii::t('yii', 'Map'),
+                        ]);
+
+                    },
+                    'appointment' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
+                            'title' => Yii::t('yii', 'Appointment'),
                         ]);
 
                     },
@@ -90,6 +96,10 @@ use yii\widgets\Pjax;
                     }
                     else if($action==='delete'){
                         $url = Url::to(['profile/delete', 'id' => $model->profileid]); // your own url generation logic
+                        return $url;
+                    }
+                    else if($action==='appointment'){
+                        $url = Url::to(['crmlog/appointment', 'id' => $model->accountid]); // your own url generation logic
                         return $url;
                     }
 

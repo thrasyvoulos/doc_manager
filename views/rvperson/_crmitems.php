@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CrmlogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Crmlogs';
+$this->title = Yii::t('app','Crmlogs');
 
 ?>
 <?php
@@ -44,7 +44,7 @@ $this->registerJs(
            // 'crmlogid',
             [
               'attribute'=>'crmtype.description',
-               'header'=>'crmtype',
+               'header'=>Yii::t('app','Type'),
                // 'filter'=>[ 1 => 'Ραντεβού', 2 =>  'Χωρίς ραντεβού'],
             ],
            // 'crmtype.description',

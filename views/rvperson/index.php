@@ -11,6 +11,7 @@ use kartik\grid\GridView;
 $this->title = Yii::t('app','Contacts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="rvperson-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -19,7 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app','Create Contact'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+     
     <?php
+    
     echo GridView::widget([
     'dataProvider'=>$dataProvider,
     'filterModel'=>$searchModel,
@@ -57,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'createddate',
 
             ['class' => 'yii\grid\ActionColumn',
-                'template'=>'{view}{update}{delete}{addlog}',
+                'template'=>'{view}{update}{delete}{addlog}{map}',
                 'buttons'=>[
                               'addlog' => function ($url, $model) {     
                                 return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
@@ -65,6 +68,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]);                                
             
                               },
+                       'map' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-map-marker"></span>', $url, [
+                            'title' => Yii::t('yii', 'Map'),
+                        ]);
+
+                    },
                                       
                                    ],
                 'urlCreator' => function ($action, $model, $key, $index) {
@@ -83,7 +92,10 @@ $this->params['breadcrumbs'][] = $this->title;
             else if($action==='delete'){
                     $url = Url::to(['rvperson/delete', 'id' => $model->rvpersonid]); // your own url generation logic
                     return $url; 
-            }
+            } else if ($action === 'map') {
+                        $url =Url::to(['rvperson/map', 'id' => $model->rvpersonid]); // your own url generation logic
+                        return $url;
+                    }
             
     }
                 
@@ -122,5 +134,5 @@ $this->params['breadcrumbs'][] = $this->title;
 ]);
     ?>
     
-   
+  
 </div>

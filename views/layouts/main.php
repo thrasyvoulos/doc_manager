@@ -50,7 +50,7 @@ AppAsset::register($this);
             ['label' => Yii::t('app','Account'), 'url' => ['/account/index'],
                 'visible'=>!Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/site/index']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
@@ -85,13 +85,13 @@ AppAsset::register($this);
             ['label' => 'City', 'icon'=>'list', 'url' => ['/city/index'],
                 'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],
-            ['label' => 'Crmtype', 'url' => ['/crmtype/index'],
+            ['label' => 'Crmtype', 'icon'=>'list','url' => ['/crmtype/index'],
                 'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],
             ['label' => Yii::t('app','Contacts'), 'icon'=>'user','url' => ['/rvperson/index'],
                 'visible'=>!Yii::$app->user->isGuest
             ],
-            ['label' => Yii::t('app','Specialties'),'icon'=>'list', 'url' => ['/specialties/index'],
+            ['label' => Yii::t('app','Specialties'),'icon'=>'th', 'url' => ['/specialties/index'],
                 'visible'=>!Yii::$app->user->isGuest && Yii::$app->user->identity->roleid==app\models\Role::ROLE_ADMIN
             ],
                     ['label' => Yii::t('app','Crmlogs'), 'icon'=>'list-alt', 'url' => ['/crmlog/index'],

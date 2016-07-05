@@ -43,7 +43,12 @@ class RvpersonController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+public function actionMap($id){
+        $model = $this->findModel($id);
+        return $this->render('map', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Displays a single Rvperson model.
      * @param integer $id

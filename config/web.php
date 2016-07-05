@@ -1,5 +1,5 @@
 <?php
-
+use kartik\mpdf\Pdf;
 $params = require(__DIR__ . '/params.php');
 
 $config = [
@@ -8,7 +8,7 @@ $config = [
     'bootstrap' => ['log'],
      'language' => 'el',
     'components' => [
-
+        
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'eZadjAGbrb38OwG24WuoRai2QySe0kRU',
@@ -30,6 +30,13 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+         'pdf' => [
+        'class' => Pdf::classname(),
+        //'format' => Pdf::FORMAT_A4,
+        'orientation' => Pdf::ORIENT_PORTRAIT,
+        'destination' => Pdf::DEST_DOWNLOAD,
+        // refer settings section for all configuration options
+    ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

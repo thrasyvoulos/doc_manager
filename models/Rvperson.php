@@ -62,7 +62,7 @@ class Rvperson extends \yii\db\ActiveRecord
             'firstname' => Yii::t('app','First Name'),
             'lastname' => Yii::t('app','Last Name'),
             'fathername' =>Yii::t('app','Father Name'),
-            'cityid' => 'Cityid',
+            'cityid' => Yii::t('app','City'),
             'address' => Yii::t('app','Address'),
             'zipcode' => Yii::t('app','Zip Code'),
             'birthdate' => Yii::t('app','Birthdate'),
@@ -72,6 +72,8 @@ class Rvperson extends \yii\db\ActiveRecord
             'telephone' => Yii::t('app','Telephone'),
             'email' => 'Email',
             'gps' => 'Gps',
+            'countryid'=>Yii::t('app','Country'),
+            'prefectureid'=>Yii::t('app','Prefecture'),
             'createddate' => Yii::t('app','Date'),
         ];
     }
@@ -107,5 +109,8 @@ class Rvperson extends \yii\db\ActiveRecord
         }else {
             return Yii::t('app','Female');
         }
+    }
+     public function getFullname(){
+        return $this->lastname.' '.$this->firstname;
     }
 }

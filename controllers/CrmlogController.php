@@ -9,6 +9,7 @@ use app\models\CrmlogSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\mpdf\Pdf;
 
 /**
  * CrmlogController implements the CRUD actions for Crmlog model.
@@ -34,10 +35,16 @@ class CrmlogController extends Controller
      * Lists all Crmlog models.
      * @return mixed
      */
+    public function actionCheck(){
+        
+        $query=  Crmlog::find()->where(['accountid' => Yii::$app->user->identity->accountid])
+                ->orderBy(['crmlogid' => SORT_DESC])->one();
+        $max2=$query->crmlogid;
+        echo json_encode($max2);
+    }
+
     public function actionIndex()
     {
-
-
         $searchModel = new CrmlogSearch();
         if(Yii::$app->user->identity->roleid==Role::ROLE_ADMIN){
             $searchModel->accountid='-';
@@ -117,6 +124,73 @@ public function actionChange(){
       // var_dump($model->getErrors());exit;
     
     }
+}
+public function actionAppointment($id){
+   
+        $model = new Crmlog();
+       // $model->scenario = 'create';
+        $model->crmtypeid=  Crmlog::CRMTYPE_INTERNET;
+        $model->createddate=date('Y-m-d H:i:s');
+        $model->accountid=$id;
+        $model->status=0;
+        
+        $model2=New \app\models\Rvperson();
+        $model2->createddate=date('Y-m-d H:i:s');
+        $model2->sex=1;
+        if ($model2->load(Yii::$app->request->post()) && $model2->validate()) {
+           if($model2->save())
+               {
+               //var_dump($model2->getErrors());exit;
+                    $accountrvperson=new \app\models\Accountrvperson();
+                    $accountrvperson->rvpersonid=$model2->rvpersonid;
+                    $accountrvperson->accountid=$id;
+                    $accountrvperson->createddate=date('Y-m-d H:i:s');
+                    $accountrvperson->save();
+
+
+                    $model->rvpersonid=$model2->rvpersonid;
+                    $model->fromdate=$_POST['Crmlog']['fromdate'];
+                   // $model->todate=$_POST['Crmlog']['todate'];
+                    $model->description=$_POST['Crmlog']['description'];
+                    //$model->save();
+                    if($model->save()){
+                        return $this->actionPrint($model, $id, $model2);
+                         /*return $this->redirect(['/profile/search']);*/
+                    }
+               
+               }
+
+
+        } else {
+            return $this->render('appointment', [
+                'model' => $model,
+                'model2'=>$model2,
+                'id'=>$id
+            ]);
+        }
+}
+public function actionPrint($model, $id, $model2){
+    
+    //$model, $id, $model2
+            $htmlContent=$this->renderPartial('print', ['model'=>$model,
+                                                        'id'=>$id,
+                                                        'model2'=>$model2]
+                    );
+               $pdf = new Pdf([
+                    'mode' => Pdf::FORMAT_LETTER, // leaner size using standard fonts
+                    'content' =>$htmlContent,
+                    'destination' => Pdf::DEST_BROWSER, 
+                    'orientation' => Pdf::ORIENT_LANDSCAPE,
+                    'options' => [
+                        'title' => 'Doctor Appoinment',
+                       // 'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+                    ],
+                    'methods' => [
+                        'SetHeader' => [date("r")],
+                        'SetFooter' => ['|Page {PAGENO}|'],
+                    ]
+                ]);
+               return $pdf->render(); // call mpdf write html
 }
     /**
      * Updates an existing Crmlog model.

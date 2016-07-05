@@ -52,5 +52,9 @@ return [
     'Logout'=>'Αποσύνδεση',
     'Note'=>'Σημείωση',
     'Search'=>'Αναζήτηση',
+    'Create Rvperson'=>'Δημιουργία Επαφής',
+    'Update Rvperson'=>'Ενημέρωση Επαφής',
+    'Type'=>'Τύπος',
+    'Full Name'=>'Ονομ/πώνυμο'
     
 ];

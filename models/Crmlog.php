@@ -22,13 +22,13 @@ use Yii;
  * @property Rvperson $rvperson
  */
 class Crmlog extends \yii\db\ActiveRecord
-{
+{   
     /**
      * @inheritdoc
      */
         const CRMTYPE_RENDEZVOUS=1;
         const CRMTYPE_NORENDEZVOUS=2;
-
+        const CRMTYPE_INTERNET=3;
     public static function tableName()
     {
         return 'crmlog';
@@ -40,16 +40,16 @@ class Crmlog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['crmtypeid', 'accountid', 'rvpersonid', 'createddate', 'status','fromdate','todate','description'], 'required'],
+            [['crmtypeid', 'accountid', 'rvpersonid', 'createddate', 'status','fromdate','description'], 'required'],
             [['crmtypeid', 'accountid', 'rvpersonid', 'status'], 'integer'],
             [['description'], 'string'],
             [['createddate','fromdate', 'todate'], 'safe'],
             [['crmtypeid'], 'exist', 'skipOnError' => true, 'targetClass' => Crmtype::className(), 'targetAttribute' => ['crmtypeid' => 'crmtypeid']],
             [['accountid'], 'exist', 'skipOnError' => true, 'targetClass' => Account::className(), 'targetAttribute' => ['accountid' => 'accountid']],
             [['rvpersonid'], 'exist', 'skipOnError' => true, 'targetClass' => Rvperson::className(), 'targetAttribute' => ['rvpersonid' => 'rvpersonid']],
-            [['todate'], 'compare','compareAttribute'=>'fromdate','operator'=>'>','message'=>'To date cannot be smaller than From date'],
+           // [['todate'], 'compare','compareAttribute'=>'fromdate','operator'=>'>','message'=>'To date cannot be smaller than From date'],
             [['accountid', 'fromdate'], 'unique', 'targetAttribute' => ['accountid', 'fromdate'],'message'=>'time and place is busy place select new one.','on'=>'create'],
-            [['accountid','todate'], 'checkDate','on'=>'create'],
+            //[['accountid','todate'], 'checkDate','on'=>'create'],
             //[['accountid','todate'], 'checkDate', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
@@ -82,7 +82,7 @@ class Crmlog extends \yii\db\ActiveRecord
             'rvpersonid' => 'Rvpersonid',
             'createddate' => Yii::t('app','Date'),
             'status' => Yii::t('app','Status'),
-            'fromdate'=>Yii::t('app','From'),
+            'fromdate'=>Yii::t('app','Date'),
             'todate'=>Yii::t('app','To'),
 
         ];
@@ -111,6 +111,6 @@ class Crmlog extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Rvperson::className(), ['rvpersonid' => 'rvpersonid']);
     }
-
+   
    
 }
