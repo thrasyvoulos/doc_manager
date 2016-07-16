@@ -23,12 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a(Yii::t('app','Print'), ['print', 'id' => $model->rvpersonid], ['class' => 'btn btn-success']) ?>
     </p>
-    <div class="col-sm-4">
-        <div class="panel panel-info" style="width:200px;">
+     <div class="panel panel-info">
+        <div style="margin-top: 10px;margin-right: 10px">
             <div class="panel-heading">
-                <?php echo Yii::t('app', 'Στοιχεία');
+                <h2><?= Html::img('@web/images/details.png');?><?php echo Yii::t('app', 'Στοιχεία');
                 ?>
+                 </h2>
                 </div>
 
                 <?= DetailView::widget([
@@ -52,18 +54,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="panel panel-info" style="width:200px;">
+     <div class="panel panel-info">
+        <div style="margin-top: 10px;margin-right: 10px">
             <div class="panel-heading">
-                <?php echo Yii::t('app', 'Address');
+                <h2> <?= Html::img('@web/images/address.png');?> <?php echo Yii::t('app', 'Address');
                 ?>
+               </h2>
             </div>
 
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
                     // 'rvpersonid',
-                    'city.cityname',
+                    [
+                        'attribute'=>'cityid',
+                        'value'=>$model->city->cityname,
+                        'header'=>Yii::t('app','City')
+                    ],
+                    //'city.cityname',
                     'address',
                     'zipcode',
                     'birthdate',
@@ -76,11 +84,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="panel panel-info" style="width:200px;">
+  <div class="panel panel-info">
+         <div style="margin-top: 10px;margin-right: 10px">
             <div class="panel-heading">
-                <?php echo Yii::t('app', 'Επικοινωνία');
+                <h2><?= Html::img('@web/images/contact.png');?><?php echo Yii::t('app', 'Επικοινωνία');
                 ?>
+                
+
+                </h2>
             </div>
 
             <?= DetailView::widget([

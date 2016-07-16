@@ -1,11 +1,85 @@
-<?php   $doctor = app\models\Profile::find()->where(['accountid' => $id])->one();
+<?php  
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+$doctor = app\models\Profile::find()->where(['accountid' => $id])->one();
+
  ?>
-<h2 style="text-align: center">  <?php echo $doctor->firstname.' '.$doctor->lastname.' '. $doctor->specialties->description ?> </h2>
+ <div class="panel panel-info">
+  
+         <div style="margin-top: 10px;margin-right: 10px;display: inline-block;">
+             
+                 <h2>
+                     <?php  if($doctor->logo){
+                        echo Html::img('@web/'.$doctor->logo);   
+                    }?>
+                     <?php echo Yii::t('app', 'Στοιχεία Ιατρού');
+                ?>
+                 </h2>
+                <?= DetailView::widget([
+                'model' => $doctor,
+                'attributes' => [
+                 
+                    'firstname',
+                    'lastname',
+                    [
+                        'attribute'=>'specialtiesid',
+                        'value'=>$doctor->specialties->description,
+                        'header'=>Yii::t('app','Specialty')
+                    ],
+                    [
+                        'attribute'=>'cityid',
+                        'value'=>$doctor->city->cityname,
+                        'header'=>Yii::t('app','City')
+                    ],
+                    'address',
+                    'email:email',
+                    'mobilephone',
+                    'telephone'
+                    
+                
 
-<br>
-<br>
+                ],
+            ]) ?>
+          
+             </div>
+     
+         
+         </div>
 
-<h3 style="text-align: center"> <?php echo $model2->firstname.' '.$model2->lastname.'<br>' ?></h3>
+
+
+ <div class="panel panel-info">
+         <div style="margin-top: 10px;margin-right: 10px">
+          
+                 <h2><?= Html::img('@web/images/details.png');?><?php echo Yii::t('app', 'Στοιχεία Ασθενή');
+                ?>
+                 </h2>
+                 
+             </div>
+             <?= DetailView::widget([
+                'model' => $model2,
+                'attributes' => [
+                 
+                    'firstname',
+                    'lastname',
+                    [
+                        'attribute'=>'cityid',
+                        'value'=>$model2->city->cityname,
+                        'header'=>Yii::t('app','City')
+                    ],
+                    'address',
+                    'email:email',
+                    
+                
+
+                ],
+            ]) ?>
+               
+                
+         </div>
+  
+
 <hr align="left" width="50%">
 <?php $data=explode(' ',$model->fromdate); 
        $date=$data[0];
@@ -13,11 +87,3 @@
 ?>
 <h3 style="text-align: center">  <u><?php echo 'έχετε ραντεβού:'.'<br>' ?></u></h3>
 <h3 style="text-align: center"><u> <?php  echo $date.' '.'στις: '.$time.'<br>'?></u> </h3>   
-<hr align="left" width="50%">
-
-
-<?php echo $doctor->address.'<br>' ?>
-
-<?php echo $doctor->zipcode.' '.$doctor->city->cityname.'<br>' ?>
-<?php echo Yii::t('app', 'Telephone').':'.$doctor->telephone.'<br>' ?>
-<?php echo Yii::t('app', 'Mobile phone').':'.$doctor->mobilephone.'<br>'  ?>

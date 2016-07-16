@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CrmlogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app','Crmlogs');
+$this->title = Yii::t('app','History');
 
 ?>
 <?php

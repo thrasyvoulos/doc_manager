@@ -23,6 +23,7 @@ use Yii;
  * @property string $telephone
  * @property string $email
  * @property string $note
+ * @property string $logo
  * @property string $gps
  * @property string $createddate
  *
@@ -37,6 +38,7 @@ class Profile extends \yii\db\ActiveRecord
      */
     public $countryid;
     public $prefectureid;
+    public $file;
     public static function tableName()
     {
         return 'profile';
@@ -53,6 +55,8 @@ class Profile extends \yii\db\ActiveRecord
             [['birthdate', 'createddate'], 'safe'],
             [['firstname', 'lastname', 'address', 'birthplace', 'email', 'gps','fathersname'], 'string', 'max' => 50],
             [['note'], 'string', 'max' => 1000],
+            [['logo'], 'string', 'max' => 200],
+            [['file'],'file'],
             [['zipcode', 'mobilephone', 'telephone'], 'string', 'max' => 20],
             [['accountid'], 'exist', 'skipOnError' => true, 'targetClass' => Account::className(), 'targetAttribute' => ['accountid' => 'accountid']],
             [['specialtiesid'], 'exist', 'skipOnError' => true, 'targetClass' => Specialties::className(), 'targetAttribute' => ['specialtiesid' => 'specialtiesid']],
@@ -85,7 +89,8 @@ class Profile extends \yii\db\ActiveRecord
             'createddate' => Yii::t('app', 'Createddate'),
             'countryid'=>Yii::t('app','Country'),
             'prefectureid'=>Yii::t('app','Prefecture'),
-            'note'=>Yii::t('app','Note')
+            'note'=>Yii::t('app','Note'),
+            'file'=>'Logo',
 
         ];
     }

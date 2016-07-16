@@ -76,7 +76,7 @@ class Crmlog extends \yii\db\ActiveRecord
     {
         return [
             'crmlogid' => 'Crmlogid',
-            'crmtypeid' => 'Crmtypeid',
+            'crmtypeid' => Yii::t('app','Type'),
             'description' => Yii::t('app','Description'),
             'accountid' => 'Accountid',
             'rvpersonid' => 'Rvpersonid',

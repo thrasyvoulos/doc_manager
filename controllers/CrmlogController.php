@@ -42,7 +42,36 @@ class CrmlogController extends Controller
         $max2=$query->crmlogid;
         echo json_encode($max2);
     }
+    public function actionEvents(){
+        if(Yii::$app->user->identity->roleid==app\models\Role::ROLE_USER){
+            $test = app\models\Crmlog::find()->where(['accountid' => Yii::$app->user->identity->accountid])->all();
+        }else {
+            $test = app\models\Crmlog::find()->all();
+        }
 
+
+        $events = array();
+       //Testing
+
+       foreach($test as $t){
+             $Event = new \yii2fullcalendar\models\Event();
+          // var_dump($t->crmlogid);exit;
+       $Event->id = $t->crmlogid;
+       if($t->status==0){
+            $Event->backgroundColor='blue';
+       }else {
+            $Event->backgroundColor='green';
+
+       }
+       $Event->title = $t->rvperson->lastname.' '.$t->description;
+       $Event->start = $t->fromdate;
+              // $Event->end = $t->todate;
+       //$Event->end=date('Y-m-d H:i:s');
+       $events[] = $Event;
+
+       }
+       echo json_encode($events);
+    }
     public function actionIndex()
     {
         $searchModel = new CrmlogSearch();
@@ -125,19 +154,22 @@ public function actionChange(){
     
     }
 }
+
+
 public function actionAppointment($id){
-   
+      
         $model = new Crmlog();
        // $model->scenario = 'create';
         $model->crmtypeid=  Crmlog::CRMTYPE_INTERNET;
         $model->createddate=date('Y-m-d H:i:s');
         $model->accountid=$id;
         $model->status=0;
-        
-        $model2=New \app\models\Rvperson();
+      
+        $model2=new \app\models\Rvperson();
         $model2->createddate=date('Y-m-d H:i:s');
         $model2->sex=1;
         if ($model2->load(Yii::$app->request->post()) && $model2->validate()) {
+           
            if($model2->save())
                {
                //var_dump($model2->getErrors());exit;
@@ -155,11 +187,12 @@ public function actionAppointment($id){
                     //$model->save();
                     if($model->save()){
                         return $this->actionPrint($model, $id, $model2);
-                         /*return $this->redirect(['/profile/search']);*/
+                     
+                         //return $this->redirect(['/profile/search']);
                     }
-               
+                
                }
-
+        
 
         } else {
             return $this->render('appointment', [
@@ -168,7 +201,9 @@ public function actionAppointment($id){
                 'id'=>$id
             ]);
         }
+        
 }
+
 public function actionPrint($model, $id, $model2){
     
     //$model, $id, $model2
@@ -179,18 +214,19 @@ public function actionPrint($model, $id, $model2){
                $pdf = new Pdf([
                     'mode' => Pdf::FORMAT_LETTER, // leaner size using standard fonts
                     'content' =>$htmlContent,
-                    'destination' => Pdf::DEST_BROWSER, 
+                    'destination' => Pdf::DEST_DOWNLOAD, 
                     'orientation' => Pdf::ORIENT_LANDSCAPE,
                     'options' => [
                         'title' => 'Doctor Appoinment',
                        // 'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
                     ],
                     'methods' => [
-                        'SetHeader' => [date("r")],
+                        'SetHeader' => [date("d/m/Y H:i:s")],
                         'SetFooter' => ['|Page {PAGENO}|'],
                     ]
                 ]);
                return $pdf->render(); // call mpdf write html
+               
 }
     /**
      * Updates an existing Crmlog model.

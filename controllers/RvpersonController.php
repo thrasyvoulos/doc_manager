@@ -8,7 +8,7 @@ use app\models\RvpersonSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use kartik\mpdf\Pdf;
 /**
  * RvpersonController implements the CRUD actions for Rvperson model.
  */
@@ -59,6 +59,27 @@ public function actionMap($id){
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+    public function actionPrint($id)
+    {   
+        $htmlContent=$this->renderPartial('print', ['model'=>$this->findModel($id)]
+                    );
+               $pdf = new Pdf([
+                    'mode' => Pdf::FORMAT_A4, // leaner size using standard fonts
+                    'content' =>$htmlContent,
+                    'destination' => Pdf::DEST_BROWSER, 
+                    'orientation' => Pdf::ORIENT_PORTRAIT,
+                    'options' => [
+                        'title' => Yii::t('app','Details')
+                       // 'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+                    ],
+                    'methods' => [
+                        'SetHeader' => [date("r")],
+                        'SetFooter' => ['|Page {PAGENO}|'],
+                    ]
+                ]);
+               return $pdf->render();
+       
     }
 
     /**

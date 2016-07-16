@@ -46,9 +46,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'firstname',
             'lastname',
             'fathername',
-            'city.cityname',
+           // 'city.cityname',
             'address',
-       
+            [
+              'attribute'=>'cityid',
+              'value'=>'city.cityname',
+              'filter'=>Html::activeDropDownList($searchModel, 'cityid', \yii\helpers\ArrayHelper::map(\app\models\City::find()->asArray()->all(),'cityid','cityname'),[
+                        'prompt' => '-']),
+               
+                
+            ],
             // 'zipcode',
             // 'birthdate',
             // 'birthplace',
@@ -107,10 +114,10 @@ $this->params['breadcrumbs'][] = $this->title;
     'pjax'=>true, // pjax is set to always true for this demo
     // set your toolbar
     'toolbar'=> [
-        ['content'=>
-            Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>'Add Rvperson', 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
-            Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['grid-demo'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>'Reset Grid'])
-        ],
+       /* ['content'=>
+           // Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>'Add Rvperson', 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
+           // Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['grid-demo'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>'Reset Grid'])
+        ],*/
         '{export}',
         '{toggleData}',
     ],

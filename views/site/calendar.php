@@ -89,6 +89,7 @@ $('#calendar').fullCalendar({
 ]
 });
 });
+
 </script>
  
 <style type='text/css'>

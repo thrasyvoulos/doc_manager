@@ -55,14 +55,14 @@ use dosamigos\google\maps\layers\BicyclingLayer;
 
 <?php
 $gps=$model->gps;
-$lat='37.983643';//athens
-$lon='23.730104';
+
 if($gps){
     $ex=explode(',',$gps);
     $lat=$ex[0];
     $lon=$ex[1];
 }else{
-    
+    $lat='37.983643';//athens
+    $lon='23.730104';
 }
 
 

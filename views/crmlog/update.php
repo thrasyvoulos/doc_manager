@@ -4,11 +4,14 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Crmlog */
+?>
 
-$this->title = 'Update Crmlog: ' . $model->crmlogid;
-$this->params['breadcrumbs'][] = ['label' => 'Crmlogs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->crmlogid, 'url' => ['view', 'id' => $model->crmlogid]];
-$this->params['breadcrumbs'][] = 'Update';
+<?php
+
+$this->title = Yii::t('app', 'Update Crmlog');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Crmlogs'), 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => $model->crmlogid, 'url' => ['view', 'id' => $model->crmlogid]];
+$this->params['breadcrumbs'][] =  Yii::t('app', 'Update');
 ?>
 <div class="crmlog-update">
 

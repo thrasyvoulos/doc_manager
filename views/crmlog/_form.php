@@ -17,7 +17,9 @@ use kartik\widgets\Select2;
 
 <div class="crmlog-form">
 
-    <?php $form = ActiveForm::begin([
+    <?php 
+   
+    $form = ActiveForm::begin([
     'id' => 'crmlog-form',
     'type' => ActiveForm::TYPE_HORIZONTAL,
         'enableAjaxValidation' => false,
@@ -29,22 +31,22 @@ use kartik\widgets\Select2;
            // 'validateOnSubmit'=>false,
         ),
     ]); ?>
-     <div class="panel panel-primary">
+     <div class="panel panel-success">
            <div class="panel-heading">
                <?php   $person = app\models\Rvperson::find()->where(['rvpersonid' => $model->rvpersonid])->one();
  ?>
-               <?php echo 'Person information'.'<br>';?>
+               <?php echo Yii::t('app','Contact Information').'<br>';?>
               
            </div>
        <div class="panel-body">
           
-               <?php echo 'Fistname: '.$person->firstname.'<br>' ?>
-                <?php echo 'Lastname: '.$person->lastname.'<br>' ?>
-                <?php  echo 'Address: '.$person->address.'<br>'?>    
+               <?php echo Yii::t('app','First Name').': '.$person->firstname.'<br>' ?>
+                <?php echo Yii::t('app','Last Name').': '.$person->lastname.'<br>' ?>
+                <?php  echo Yii::t('app','Address').': '.$person->address.'<br>'?>    
 
     </div>
   </div>
-
+ <div class="panel panel-info">
 <?php
 
  /*echo $form->field($model, 'createddate')->widget(
@@ -59,6 +61,9 @@ use kartik\widgets\Select2;
     //  'stepping' => 30,
     //],
 ]);*/
+?>
+     <div style="margin-top: 10px;margin-right: 10px">
+     <?php
 echo $form->field($model, 'fromdate')->widget(
     kartik\datetime\DateTimePicker::className(), [
     'pluginOptions' => [
@@ -89,12 +94,12 @@ $items3 = ArrayHelper::map(\app\models\Crmtype::find()->all(), 'crmtypeid', 'des
    
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-
+</div> 
+ </div>
    
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app','Create') : Yii::t('app','Update') , ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

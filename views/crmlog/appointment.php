@@ -8,6 +8,8 @@ use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
 use kartik\widgets\Select2;
+use xj\bootbox\BootboxAsset;
+BootboxAsset::register($this);
 //use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -17,33 +19,35 @@ use kartik\widgets\Select2;
 
 <div class="crmlog-form">
 
-    <?php $form = ActiveForm::begin([
+    <?php 
+    $form = ActiveForm::begin([
     'id' => 'crmlog-form',
-    'type' => ActiveForm::TYPE_HORIZONTAL,
-        'enableAjaxValidation' => false,
-        'enableClientValidation' => true,
-        'options'=>array(
-            /* When false, the rules are run at the same time */
-            /* When true at the same time than enableClientValidation,
-                custom rules run after all the standard ones are cleared */
-           // 'validateOnSubmit'=>false,
-        ),
-    ]); ?>
-     <div class="panel panel-primary">
-           <div class="panel-heading">
-               <?php   $person = app\models\Profile::find()->where(['accountid' => $id])->one();
+    'type' => ActiveForm::TYPE_HORIZONTAL]); ?>
+    <div class="panel panel-info">
+        <div style="margin-top: 10px;margin-right: 10px;">
+           
+            <div class="panel-heading" >
+                  <?php   $person = app\models\Profile::find()->where(['accountid' => $id])->one();
  ?>
-               <?php echo 'Person information'.'<br>';?>
-              
-           </div>
-       <div class="panel-body">
-          
-               <?php echo 'Fistname: '.$person->firstname.'<br>' ?>
-                <?php echo 'Lastname: '.$person->lastname.'<br>' ?>
-                <?php  echo 'Address: '.$person->address.'<br>'?>    
+                <h2><?= Html::img('@web/images/details.png');?><?php echo Yii::t('app', 'Στοιχεία');
+                ?>
+                 </h2>
+                </div>
+            <ul>
 
+                <li> <?php echo Yii::t('app','First Name').': '.$person->firstname.'<br>' ?></li>
+              <li>  <?php echo Yii::t('app','Last Name').': '.$person->lastname.'<br>' ?></li>
+              <li>  <?php  echo Yii::t('app','Address').': '.$person->address.'<br>'?></li>
+               <li> <?php  echo Yii::t('app','Specialty').': '.$person->specialties->description.'<br>'?> </li>
+                
+           </ul>
+            
+        </div>
+        
+     
     </div>
-  </div>
+    <div class="panel panel-info">
+        <div style="margin-top: 10px;margin-right: 10px">
  <?= $form->field($model2, 'firstname')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model2, 'lastname')->textInput(['maxlength' => true]) ?>
@@ -92,23 +96,24 @@ echo $form->field($model, 'fromdate')->widget(
     echo $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 <?= $form->field($model2, 'gps')->hiddenInput(['maxlength' => true])->label(false); ?>
 
-   
-
+   </div>
+</div>
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['id'=>'submit','class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app','Submit'), ['id'=>'test','class' =>'btn btn-success']) ?>
+    
     </div>
 
     <?php ActiveForm::end(); ?>
-
+ 
 </div>
+
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  
 </head>
 
-<?php  //$url =Url::to(['profile/search']);?>
-<head>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    </head>
+<?php  $url =Url::to(['profile/search']);?>
+
     <script>
         var address='';
         var zipcode='';
@@ -136,6 +141,9 @@ echo $form->field($model, 'fromdate')->widget(
                 }
             });
         });
+        //var formData='';
+       
+     
 
     </script>
 <?php
@@ -154,6 +162,25 @@ echo $form->field($model, 'fromdate')->widget(
 </head>
 
 <script>
-
+    var flag=false;
+    $(document).ready(function () {
+    $("#crmlog-form").on("beforeSubmit", function (event, messages) {
+        flag=true;
+        return true;
+    });
+});
+ $('#test').on('click', function() {
+    var s=  $('#crmlog-form').yiiActiveForm('validate');
+   console.log(flag);
+   console.log(s);
+          var redirect = function(){
+              if(flag==true){
+                alert('Your appointment has been booked');
+                window.location.replace('<?php echo $url; ?>');
+     }
+           
+};
+setTimeout(redirect, 4000);
+        });
 
 </script>

@@ -2,6 +2,7 @@
 
 return [
     'Crmlogs'=>'Ραντεβού',
+    'Update Crmlog'=>'Ενημέρωση Ραντεβού',
     'Description'=>'Περιγραφή',
     'Date'=>'Ημ/νια',
     'First Name'=>'Όνομα',
@@ -55,6 +56,10 @@ return [
     'Create Rvperson'=>'Δημιουργία Επαφής',
     'Update Rvperson'=>'Ενημέρωση Επαφής',
     'Type'=>'Τύπος',
-    'Full Name'=>'Ονομ/πώνυμο'
+    'Full Name'=>'Ονομ/πώνυμο',
+    'Contact Information'=>'Πληροφορίες επαφής',
+    'History'=>'Ιστορικό',
+    'Print'=>'Εκτύπωση',
+    'Submit'=>'Υποβολή'
     
 ];

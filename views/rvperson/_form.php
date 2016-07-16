@@ -126,12 +126,12 @@ echo $form->field($model, 'sex')->widget(Select2::classname(), [
         $('#rvperson-address').on('change', function() {
 
             address=this.value;
-
-            //var map;
+          
 
         });
         $('#rvperson-zipcode').on('change', function() {
             zipcode=this.value;
+             console.log(zipcode);
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'address': address+','+zipcode}, function(results, status) {
 

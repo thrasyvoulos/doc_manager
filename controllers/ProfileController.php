@@ -109,6 +109,7 @@ class ProfileController extends Controller
         $query = Account::find()->where(['accountid' => Yii::$app->user->identity->accountid])->one();
        
         $model = new Profile();
+        
         $model->scenario='create';
         $model->firstname=$query->firstname;
         $model->lastname=$query->lastname;
@@ -116,7 +117,12 @@ class ProfileController extends Controller
         $model->accountid=Yii::$app->user->identity->accountid;
         $model->createddate=date('Y-m-d');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $imagename=$model->accountid;
+            $model->file=  \yii\web\UploadedFile::getInstance($model, 'file');
+            $model->file->saveAs('@web/images/'.$imagename.'.'.$model->file->extension);
+            $model->logo='images/'.$imagename.'.'.$model->file->extension;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->profileid]);
         } else {
             return $this->render('create', [
@@ -144,8 +150,12 @@ class ProfileController extends Controller
 
         $model->prefectureid=$prefecture->prefectureid;
         $model->countryid=$country->countryid;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
+        if ($model->load(Yii::$app->request->post())) {
+                $imagename=$model->accountid;
+            $model->file=  \yii\web\UploadedFile::getInstance($model, 'file');
+            $model->file->saveAs('images/'.$imagename.'.'.$model->file->extension);
+            $model->logo='images/'.$imagename.'.'.$model->file->extension;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->profileid]);
         } else {
             return $this->render('update', [

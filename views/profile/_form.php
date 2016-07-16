@@ -19,7 +19,9 @@ use dosamigos\ckeditor\CKEditor;
 </style>
 <div class="profile-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options'=>['enctype'=>'multipart/form-data']
+    ]); ?>
 
 
 
@@ -30,6 +32,7 @@ use dosamigos\ckeditor\CKEditor;
     <?= $form->field($model, 'lastname')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'fathersname')->textInput(['maxlength' => true]) ?>
+    
     <?php
     $data=ArrayHelper::map(\app\models\Specialties::find()->orderBy(['description' => SORT_ASC])->all(), 'specialtiesid', 'description');
     //var_dump($data);exit;
@@ -103,6 +106,7 @@ use dosamigos\ckeditor\CKEditor;
     <?= $form->field($model, 'telephone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model,'file')->fileInput(); ?>
     <?= $form->field($model, 'note')->widget(CKEditor::className(), [
         'options' => ['rows' => 6],
         'preset' => 'basic'

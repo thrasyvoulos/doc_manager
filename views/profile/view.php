@@ -24,37 +24,105 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+ <div class="panel panel-info">
+        <div style="margin-top: 10px;margin-right: 10px">
+            <div class="panel-heading">
+                <h2><?= Html::img('@web/images/details.png');?><?php echo Yii::t('app', 'Στοιχεία');
+                ?>
+                 </h2>
+               
+                </div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-          //  'profileid',
-            //'accountid',
-            'firstname',
-            'lastname',
-            'specialties.description',
-            [
-                'attribute'=>'cityid',
-                'value'=>$model->city->cityname,
-                'header'=>Yii::t('app','City')
-            ],
-            //'city.cityname',
-            'address',
-            'zipcode',
-            'birthdate',
-            'birthplace',
-            'sex',
-            'mobilephone',
-            'telephone',
-            'email:email',
-            [
-                'attribute'=>'note',
-                'format'=>'raw'
-            ],
-            //'note',
-            'gps',
-            'createddate',
-        ],
-    ]) ?>
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                       // 'rvpersonid',
+                        'firstname',
+                        'lastname',
+                        'specialties.description',
+                        'birthdate',
+                        'birthplace',
+                       /* [
+                            'attribute'=>'sex',
+                            'value'=>$model->getSex2(),
+                        ],*/
 
+
+                    ],
+                ]) ?>
+
+
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div style="margin-top: 10px;margin-right: 10px">
+            <div class="panel-heading">
+                <h2> <?= Html::img('@web/images/address.png');?> <?php echo Yii::t('app', 'Address');
+                ?>
+               </h2>
+            </div>
+
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                  
+                    [
+                        'attribute'=>'cityid',
+                        'value'=>$model->city->cityname,
+                        'header'=>Yii::t('app','City')
+                    ],
+              
+                    'address',
+                    'zipcode',
+                    'birthdate',
+                    'birthplace',
+                    //'sex'
+
+                ],
+            ]) ?>
+
+
+        </div>
+    </div>
+      <div class="panel panel-info">
+         <div style="margin-top: 10px;margin-right: 10px">
+            <div class="panel-heading">
+                <h2><?= Html::img('@web/images/contact.png');?><?php echo Yii::t('app', 'Επικοινωνία');
+                ?>
+                
+
+                </h2>
+            </div>
+
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                 
+                    'mobilephone',
+                    'telephone',
+                    'email:email',
+                    'gps',
+
+                ],
+            ]) ?>
+
+
+        </div>
+    </div>
+    <div class="panel panel-info">
+         <div style="margin-top: 10px;margin-right: 10px">
+             <div class="panel-heading">
+                  <h2><?php echo Yii::t('app', 'Logo');
+                ?>
+                
+
+                </h2>
+                 
+             </div>
+            <?= Html::img('@web/'.$model->logo);?>
+               
+                
+         </div>
+    </div>
+    
 </div>
